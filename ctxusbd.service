@@ -1,0 +1,22 @@
+[Unit]
+Description=Citrix USB Service
+Before=multi-user.target
+Before=graphical.target
+After=udev.service
+Requires=ctxlogd.service
+After=ctxlogd.service
+
+[Service]
+Type=forking
+Restart=no
+TimeoutSec=5min
+IgnoreSIGPIPE=no
+KillMode=process
+GuessMainPID=no
+RemainAfterExit=yes
+SuccessExitStatus=5 6
+ExecStart=/opt/Citrix/ICAClient/ctxusbd.rc start
+ExecStop=/opt/Citrix/ICAClient/ctxusbd.rc stop
+
+[Install]
+WantedBy=multi-user.target
